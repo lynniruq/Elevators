@@ -3,6 +3,7 @@ import "../style/Box.css"
 import FloorElevator from "../components/FloorElevator";
 import ElevatorDefault from "../components/ElevatorDefault";
 import Elevator from "../view/Elevator";
+import Main from "./Main";
 
 export default function ElevatorView() {
     const [status0, setStatus0] = useState('Call');
@@ -15,6 +16,9 @@ export default function ElevatorView() {
     const [status7, setStatus7] = useState('Call');
     const [status8, setStatus8] = useState('Call');
     const [status9, setStatus9] = useState('Call');
+    const [floor, setFloor] = useState(0);
+    const [elevator, setElevator] = useState(0);
+    const [selected, setSelected] = useState(false);
     const url = "https://tonejs.github.io/audio/berklee/gong_1.mp3";
     const audio = new Audio(url);
     const [elevators, setElevators] = useState([{
@@ -155,19 +159,34 @@ export default function ElevatorView() {
         }, 3000);
 
     }
+    const onChange =  (e,name) => {
+        if(name === 'Floor') {
+            setFloor(e.target.value)
+        }
+        else {
+            setElevator(e.target.value)
+        }
+    }
+    const onClick =  () => {
+        setSelected(true)
+    }
     return (
         <div className={'container'}>
-            <FloorElevator floorNumber={'9th'} status={status9} onFloorClick={() => onFloorClick(status9, setStatus9,9)}/>
-            <FloorElevator floorNumber={'8th'} status={status8} onFloorClick={() => onFloorClick(status8, setStatus8,8)}/>
-            <FloorElevator floorNumber={'7th'} status={status7} onFloorClick={() => onFloorClick(status7, setStatus7,7)}/>
-            <FloorElevator floorNumber={'6th'} status={status6} onFloorClick={() => onFloorClick(status6, setStatus6,6)}/>
-            <FloorElevator floorNumber={'5th'} status={status5} onFloorClick={() => onFloorClick(status5, setStatus5,5)}/>
-            <FloorElevator floorNumber={'4th'} status={status4} onFloorClick={() => onFloorClick(status4, setStatus4,4)}/>
-            <FloorElevator floorNumber={'3rd'} status={status3} onFloorClick={() => onFloorClick(status3, setStatus3,3)}/>
-            <FloorElevator floorNumber={'2nd'} status={status2} onFloorClick={() => onFloorClick(status2, setStatus2,2)}/>
-            <FloorElevator floorNumber={'1st'} status={status1} onFloorClick={() => onFloorClick(status1, setStatus1,1)}/>
-            <FloorElevator floorNumber={'Ground Floor'} status={status0} onFloorClick={() => onFloorClick(status0, setStatus0,0)}/>
-            {elevators.map(elevator =><Elevator elevatorID={elevator.elevatorID} left={elevator.left} translate={elevator.translate+'px'} color={elevator.color} animationName={elevator.animationName}/>)}
+            {!selected&&<Main onClick={onClick} onChange={onChange}/>}
+            {selected&& <>
+                <FloorElevator floorNumber={'9th'} status={status9} onFloorClick={() => onFloorClick(status9, setStatus9,9)}/>
+                <FloorElevator floorNumber={'8th'} status={status8} onFloorClick={() => onFloorClick(status8, setStatus8,8)}/>
+                <FloorElevator floorNumber={'7th'} status={status7} onFloorClick={() => onFloorClick(status7, setStatus7,7)}/>
+                <FloorElevator floorNumber={'6th'} status={status6} onFloorClick={() => onFloorClick(status6, setStatus6,6)}/>
+                <FloorElevator floorNumber={'5th'} status={status5} onFloorClick={() => onFloorClick(status5, setStatus5,5)}/>
+                <FloorElevator floorNumber={'4th'} status={status4} onFloorClick={() => onFloorClick(status4, setStatus4,4)}/>
+                <FloorElevator floorNumber={'3rd'} status={status3} onFloorClick={() => onFloorClick(status3, setStatus3,3)}/>
+                <FloorElevator floorNumber={'2nd'} status={status2} onFloorClick={() => onFloorClick(status2, setStatus2,2)}/>
+                <FloorElevator floorNumber={'1st'} status={status1} onFloorClick={() => onFloorClick(status1, setStatus1,1)}/>
+                <FloorElevator floorNumber={'Ground Floor'} status={status0} onFloorClick={() => onFloorClick(status0, setStatus0,0)}/>
+                {elevators.map(elevator =><Elevator elevatorID={elevator.elevatorID} left={elevator.left} translate={elevator.translate+'px'} color={elevator.color} animationName={elevator.animationName}/>)}
+            </>
+            }
         </div>
     );
 }

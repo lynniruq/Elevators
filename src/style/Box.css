@@ -24,6 +24,17 @@
     border-radius: 5px;
     color: #FFFFFF;
 }
+.button-class-main{
+    width: 6rem;
+    margin: 1rem;
+    height: 2rem;
+    border-radius: 5px;
+    color: black;
+    font-size: 1rem;
+}
+.button-main{
+    cursor: pointer;
+}
 .Call{
     background: #00e68a;
     border: 1px solid #00e68a;
@@ -38,6 +49,7 @@
     color: #00e68a;
 }
 .floor-number{
+  text-align: end;
   font-size: 1rem;
   font-weight: bold;
   margin: 1rem;
