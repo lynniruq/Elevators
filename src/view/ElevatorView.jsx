@@ -111,10 +111,8 @@ export default function ElevatorView() {
     }
     const moveElevator = async (elevator, set) => {
         // const time = Math.abs(elevator.currentFloor - elevator.destinationFloor) * 2;
-        console.log("elevator",elevator)
         let index
-
-        const element = document.querySelector(".moveUpWithFade");
+        const element = document.getElementById(elevator.elevatorID)
         element.classList.add('animated');
         let cssClass = document.querySelector(".animated");
         setTimeout(async () => {
@@ -147,7 +145,7 @@ export default function ElevatorView() {
             setElevators(elevators);
             set("Arrived")
 
-        }, 300);
+        }, 2000);
         setTimeout(async () => {
             set("Call")
             elevator.color = '#000000'
